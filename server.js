@@ -21,6 +21,13 @@ app.post('/api/data', (req, res) => {
 
 // 2. UI fetches data from here ONLY when the button is clicked
 app.get('/api/data', (req, res) => {
+    // Explicitly prevent browsers from caching older sensor packets
+    res.set({
+        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0',
+        'Surrogate-Control': 'no-store'
+    });
     res.json(latestTelemetry);
 });
 
